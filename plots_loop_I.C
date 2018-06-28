@@ -87,13 +87,18 @@ void plots_loop_I()
 		Double_t min2 = myTree2->GetMinimum(varNames[iter]);
 		Double_t max2 = myTree2->GetMaximum(varNames[iter]);
 		Double_t minuse;
+		Double_t maxuse;
 		if (min1 < 0 || min2 < 0){
 			minuse = floor(1.1*min(min1,min2));
 		}
 		else{
 			minuse = floor(0.9*min(min1,min2));
 		}
-		Double_t maxuse = ceil(1.1*max(max1, max2));
+		if (max1 < 0 || max2 < 0){
+			maxuse = ceil(0.9*max(max1,max2));	
+		}else{
+			maxuse = ceil(1.1*max(max1, max2));
+		}
 		hist1[iter] = new TH1F(hTitle1,varNames[iter],50,minuse,maxuse);
 		hist2[iter] = new TH1F(hTitle2,varNames[iter],50,minuse,maxuse);
 	}

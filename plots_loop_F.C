@@ -45,7 +45,7 @@ void plots_loop_F()
 
 	//Add Branch names exactly as they appear 
 	const char * varNames[numVars] = {"jet_pt", "jet_eta", "jet_Exkt_phi_Lead", "jet_Exkt_m_Lead", "jet_Exkt_pt_Lead", "jet_Exkt_eta_Lead", "jet_Exkt_rnnip_pu_Lead", "jet_Exkt_pt_SubLead", "jet_Exkt_m_SubLead", "jet_Exkt_rnnip_pu_SubLead"};
-	
+	//const char * varNames[numVars] = {"PVy", "PVx"};
 
 	//--------------Open Root Files------------------//
 	cout << "Opening "<< fileName1 << endl;
@@ -93,7 +93,12 @@ void plots_loop_F()
 		else{
 			minuse = 0.95*min(min1,min2);
 		}
-		Double_t maxuse = 1.05*max(max1, max2);
+		Double_t maxuse;
+		if (max1 < 0 || max2 < 0){
+			maxuse = 0.95*max(max1,max2);
+		} else{
+			maxuse = 1.05*max(max1, max2);
+		}
 		hist1[iter] = new TH1F(hTitle1,varNames[iter],100,minuse,maxuse);
 		hist2[iter] = new TH1F(hTitle2,varNames[iter],100,minuse,maxuse);
 	}

@@ -63,9 +63,9 @@ def createJetTree(eventTree0, list_xsec, isSignal, isCut=False, isSpecify=True):
         xsec[0]=list_xsec[row][1]
         nevents[0]=list_xsec[row][4]
 
-        for jet in xrange(len(eventTree.jet_Exkt_pt)+len(eventTree.jet_3Exkt_pt)):
+        for jet in xrange(len(eventTree.jet_2Exkt_pt)):
             for varName in varDictIntSub:
-                if "Exkt2" in varName:
+                if "2Exkt" in varName:
 		    if "_Lead" in varName:
                         if(len(eventTree.__getattr__(varName.replace("_Lead", ""))[jet])!=2):
                        	    break
@@ -74,7 +74,7 @@ def createJetTree(eventTree0, list_xsec, isSignal, isCut=False, isSpecify=True):
                         if(len(eventTree.__getattr__(varName.replace("_SubLead", ""))[jet])!=2):
                    	    break
                         varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubLead", ""))[jet][1]     #var[jet][i]
-            	elif "Exkt3" in varName:
+            	elif "3Exkt" in varName:
                     if "_Lead" in varName:
                         if(len(eventTree.__getattr__(varName.replace("_Lead", ""))[jet])!=3):
                             break
@@ -86,7 +86,7 @@ def createJetTree(eventTree0, list_xsec, isSignal, isCut=False, isSpecify=True):
                     elif "_SubSubLead" in varName:
                         if(len(eventTree.__getattr__(varName.replace("_SubSubLead", ""))[jet])!=3):
                             break
-                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubLead", ""))[jet][2]
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubSubLead", ""))[jet][2]
 	    
             for varName in varDictInt:
                if "jet" in varName:   
@@ -95,23 +95,40 @@ def createJetTree(eventTree0, list_xsec, isSignal, isCut=False, isSpecify=True):
                    #print varName
                    varDictInt[varName][0] =eventTree.__getattr__(varName)
            # print  varDictFloatSub
+
             for varName in varDictFloatSub:
-               if "_Lead" in varName:
-                   if(len(eventTree.__getattr__(varName.replace("_Lead", ""))[jet])!=2):
-                         break
-                   varDictFloatSub[varName][0] = eventTree.__getattr__(varName.replace("_Lead", ""))[jet][0]
-                 #  print varName,  eventTree.__getattr__(varName.replace("_Lead", ""))[jet][0]  
-               elif "_SubLead" in varName:
-                   if(len(eventTree.__getattr__(varName.replace("_SubLead", ""))[jet])!=2):
-                    	 break
-                   varDictFloatSub[varName][0] = eventTree.__getattr__(varName.replace("_SubLead", ""))[jet][1]
-            for varName in varDictFloat:
+                if "2Exkt" in varName:
+                    if "_Lead" in varName:
+                        if(len(eventTree.__getattr__(varName.replace("_Lead", ""))[jet])!=2):
+                            break
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_Lead", ""))[jet][0]     #var[jet][i]
+                    elif "_SubLead" in varName:
+                        if(len(eventTree.__getattr__(varName.replace("_SubLead", ""))[jet])!=2):
+                            break
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubLead", ""))[jet][1]     #var[jet][i]
+                elif "3Exkt" in varName:
+                    if "_Lead" in varName:
+                        if(len(eventTree.__getattr__(varName.replace("_Lead", ""))[jet])!=3):
+                            break
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_Lead", ""))[jet][0]     #var[jet][i]
+                    elif "_SubLead" in varName:
+                        if(len(eventTree.__getattr__(varName.replace("_SubLead", ""))[jet])!=3):
+                            break
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubLead", ""))[jet][1]     #var[jet][i]
+                    elif "_SubSubLead" in varName:
+                        if(len(eventTree.__getattr__(varName.replace("_SubSubLead", ""))[jet])!=3):
+                            break
+                        varDictIntSub[varName][0]   = eventTree.__getattr__(varName.replace("_SubSubLead", ""))[jet][2]  
+
+
+             for varName in varDictFloat:
                if "jet" in varName:
                    #print varName,  eventTree.__getattr__(varName)[jet]   
                    varDictFloat[varName][0]   = eventTree.__getattr__(varName)[jet]
                else:
                   # print varName,  eventTree.__getattr__(varName) 
                    varDictFloat[varName][0]   = eventTree.__getattr__(varName)
+
             if(isSpecify=="1"):
                 if(isSignal=="1"):   
                    # print jetTree.jet_nGhostHBoso, jetTree.jet_nBHadr

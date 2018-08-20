@@ -1,1 +1,13 @@
 Codes to share for pileup study
+
+Brief description:
+
+analysis.py - A python script to make the same DL training analysis plots the double-b.ipynb makes. Useful if you have trouble running the jupyter notebook
+applycut.C - A short script to apply cuts to a root tree. Can be editted to slice data sets in various ways
+check_distribtion.C - A modified version of plots_sig_and_background.C, specifically for comparing signal and background distribution after jetntuple creation
+check_dist_preprocessed - A modified version of the single.py file found in the preprocessing folder. Allows you to check the shape of the preprocessed data
+double-b.ipynb - Jupyter notebook to look at various DL scores and measure of performance of trained neural network
+plots.C - Make one simple comparison plot from two root distributions. Good baseline to build your own macro from.
+plots_sig_and_background.C - Compare up to 4 distributions for an arbitrary number of variables. Designed for comparing low-pu, high-pu background and signal.
+removeTree.C - A shofrt script for removing an extra tree from a root file. For unknown reasons, sometimes the jet n-tuple production produces unwanted duplicate trees
+
